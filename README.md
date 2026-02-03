@@ -13,7 +13,7 @@ The reason I made this app is that I was working on a web app and needed to comp
 
 So instead of uploading images one by one to online image compression websites, I decided to make my
 
-##How?
+## How?
 
 first the app makes a pixel list of the RGPA from the image(.jpg .png)
 then it uses the avif compretion algorithm.
