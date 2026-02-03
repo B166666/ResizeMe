@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVIF Compressor</title>
+    <style>
+        :root {
+            --primary: #6366f1;
+            --primary-hover: #4f46e5;
+            --bg: #0f172a;
+            --card-bg: #1e293b;
+            --text: #f8fafc;
+            --text-dim: #94a3b8;
+        }
+
+        body {
+            font-family: 'Inter', system-ui, -apple-system, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 600px;
+            width: 100%;
+            background: var(--card-bg);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(to right, #818cf8, #c084fc);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p {
+            color: var(--text-dim);
+            margin-bottom: 2rem;
+        }
+
+        .drop-zone {
+            border: 2px dashed #334155;
+            border-radius: 0.75rem;
+            padding: 3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .drop-zone:hover {
+            border-color: var(--primary);
+            background: rgba(99, 102, 241, 0.05);
+        }
+
+        input[type="file"] {
+            display: none;
+        }
+
+        .controls {
+            display: none;
+            flex-direction: column;
+            gap: 1.5rem;
+            text-align: left;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        label {
+            font-weight: 500;
+            color: var(--text-dim);
+        }
+
+        input[type="range"] {
+            width: 100%;
+            accent-color: var(--primary);
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 0.5rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+            font-size: 1rem;
+        }
+
+        button:hover {
+            background-color: var(--primary-hover);
+        }
+
+        button:disabled {
+            background-color: #334155;
+            cursor: not-allowed;
+        }
+
+        .status {
+            margin-top: 1rem;
+            font-size: 0.875rem;
+            color: var(--text-dim);
+        }
+
+        #preview {
+            margin-top: 2rem;
+            max-width: 100%;
+            border-radius: 0.5rem;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>AVIF Compressor</h1>
+        <p>Premium Batch Compression powered by Squoosh</p>
+
+        <div class="drop-zone" id="drop-zone">
+            <span>Click to select files or <b>drag a folder</b> here</span>
+            <input type="file" id="file-input" accept="image/png, image/jpeg" multiple webkitdirectory>
+        </div>
+
+        <div class="controls" id="controls">
+            <div class="control-group">
+                <label for="quality">Compression Quality: <span id="quality-val">50</span></label>
+                <input type="range" id="quality" min="0" max="63" value="50">
+                <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-dim);">
+                    <span>Best Quality (0)</span>
+                    <span>Most Compressed (63)</span>
+                </div>
+            </div>
+
+            <div id="file-list-container" style="display: none; margin-top: 1rem; text-align: left;">
+                <h3 style="font-size: 1rem; margin-bottom: 0.5rem;">Files to Process:</h3>
+                <div id="file-list"
+                    style="max-height: 200px; overflow-y: auto; background: rgba(0,0,0,0.2); border-radius: 0.5rem; padding: 0.5rem; font-size: 0.8rem; border: 1px solid #334155;">
+                </div>
+            </div>
+
+            <button id="compress-btn">Compress & Download ZIP</button>
+            <div class="status" id="status"></div>
+        </div>
+    </div>
+
+    <script type="module" src="/main.js"></script>
+</body>
+
+</html>
